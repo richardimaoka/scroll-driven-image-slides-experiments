@@ -13,6 +13,8 @@ export function MyImage(props: Props) {
   const ref = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
+    console.log(`triggering useEffect in MyImage(${props.src})`);
+
     if (props.paragraphElement && ref.current) {
       ref.current.animate(
         { opacity: [0, 1] },

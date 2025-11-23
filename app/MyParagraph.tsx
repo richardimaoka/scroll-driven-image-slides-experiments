@@ -13,6 +13,10 @@ export function MyParagraph(props: Props) {
   const ref = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
+    console.log(
+      `triggering useEffect in MyParagraph(${props.text})`,
+      ref.current
+    );
     if (ref.current && !props.paragraphElement) {
       props.setParagraph(ref.current);
     }

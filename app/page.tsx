@@ -1,8 +1,8 @@
 "use client";
-import Image from "next/image";
 import styles from "./page.module.css";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { MyParagraph } from "./MyParagraph";
+import { MyImage } from "./MyImage";
 
 export default function Home() {
   console.log("rendering Home()");
@@ -35,13 +35,11 @@ export default function Home() {
     <div>
       <div className={styles["image-container"]}>
         {images.map((src, index) => (
-          <Image
+          <MyImage
             key={index}
-            className={styles.image}
             src={src}
             alt={`Image ${index + 1}`}
-            width={500}
-            height={300}
+            paragraphElement={pElements[index]}
           />
         ))}
       </div>
@@ -53,7 +51,7 @@ export default function Home() {
             setParagraph={(p) => {
               let newRefs = [...pElements];
               newRefs[index] = p;
-              // setP_Elements(newRefs);
+              setP_Elements(newRefs);
             }}
             paragraphElement={pElements[index]}
           />
