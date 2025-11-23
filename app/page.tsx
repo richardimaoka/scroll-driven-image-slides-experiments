@@ -4,8 +4,6 @@ import styles from "./page.module.css";
 import { useEffect, useRef } from "react";
 
 export default function Home() {
-  const ref = useRef<HTMLParagraphElement>(null);
-
   const images = [
     "/images/1.webp",
     "/images/2.webp",
@@ -16,6 +14,11 @@ export default function Home() {
     "/images/7.webp",
   ];
 
+  const ref = useRef<HTMLParagraphElement>(null);
+  const [refs, setRefs] = useRef<HTMLParagraphElement[]>(
+    Array(images.length).fill(null)
+  );
+
   useEffect(() => {
     if (ref.current) {
       console.log("called");
@@ -23,7 +26,11 @@ export default function Home() {
         { opacity: [0, 1] },
         {
           fill: "forwards",
+          //@ts-ignore
           timeline: new ViewTimeline({ subject: ref.current }),
+          //@ts-ignore
+          rangeStart: "entry 45%",
+          rangeEnd: "cover 50%",
         }
       );
     }
