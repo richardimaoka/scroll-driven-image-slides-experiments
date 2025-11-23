@@ -1,9 +1,12 @@
 "use client";
 import Image from "next/image";
 import styles from "./page.module.css";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { MyParagraph } from "./MyParagraph";
 
 export default function Home() {
+  console.log("rendering Home()");
+
   const images = [
     "/images/1.webp",
     "/images/2.webp",
@@ -14,27 +17,19 @@ export default function Home() {
     "/images/7.webp",
   ];
 
-  const ref = useRef<HTMLParagraphElement>(null);
-  const [refs, setRefs] = useRef<HTMLParagraphElement[]>(
+  const paragraphs = [
+    "これは最初の説明文です",
+    "これは2番目の説明文です。I accept the agreementを選択し、Nextをクリックしましょう。",
+    "次は3番目の手順です。右端のボタンをクリックします。",
+    "4番目の手順です。中央のボタンをクリックします。",
+    "5番目の手順です。左端のボタンをクリックします。",
+    "6番目の手順です。上部のメニューから設定を選択します。",
+    "7番目の手順です。設定画面で保存ボタンをクリックします。",
+  ];
+
+  const [pElements, setP_Elements] = useState<HTMLParagraphElement[]>(
     Array(images.length).fill(null)
   );
-
-  useEffect(() => {
-    if (ref.current) {
-      console.log("called");
-      ref.current.animate(
-        { opacity: [0, 1] },
-        {
-          fill: "forwards",
-          //@ts-ignore
-          timeline: new ViewTimeline({ subject: ref.current }),
-          //@ts-ignore
-          rangeStart: "entry 45%",
-          rangeEnd: "cover 50%",
-        }
-      );
-    }
-  });
 
   return (
     <div>
@@ -51,16 +46,18 @@ export default function Home() {
         ))}
       </div>
       <div className={styles.pContainer}>
-        <p>これは最初の説明文です</p>
-        <p>
-          これは2番目の説明文です。I accept the
-          agreementを選択し、Nextをクリックしましょう。
-        </p>
-        <p ref={ref}>次は3番目の手順です。右端のボタンをクリックします。</p>
-        <p>4番目の手順です。中央のボタンをクリックします。</p>
-        <p>5番目の手順です。左端のボタンをクリックします。</p>
-        <p>6番目の手順です。上部のメニューから設定を選択します。</p>
-        <p>7番目の手順です。設定画面で保存ボタンをクリックします。</p>
+        {paragraphs.map((text, index) => (
+          <MyParagraph
+            key={index}
+            text={text}
+            setParagraph={(p) => {
+              let newRefs = [...pElements];
+              newRefs[index] = p;
+              // setP_Elements(newRefs);
+            }}
+            paragraphElement={pElements[index]}
+          />
+        ))}
       </div>
     </div>
   );
