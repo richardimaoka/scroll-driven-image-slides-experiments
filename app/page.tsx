@@ -1,7 +1,11 @@
+"use client";
 import Image from "next/image";
 import styles from "./page.module.css";
+import { useEffect, useRef } from "react";
 
 export default function Home() {
+  const ref = useRef<HTMLParagraphElement>(null);
+
   const images = [
     "/images/1.webp",
     "/images/2.webp",
@@ -11,6 +15,19 @@ export default function Home() {
     "/images/6.webp",
     "/images/7.webp",
   ];
+
+  useEffect(() => {
+    if (ref.current) {
+      console.log("called");
+      ref.current.animate(
+        { opacity: [0, 1] },
+        {
+          fill: "forwards",
+          timeline: new ViewTimeline({ subject: ref.current }),
+        }
+      );
+    }
+  });
 
   return (
     <div>
@@ -32,7 +49,7 @@ export default function Home() {
           これは2番目の説明文です。I accept the
           agreementを選択し、Nextをクリックしましょう。
         </p>
-        <p>次は3番目の手順です。右端のボタンをクリックします。</p>
+        <p ref={ref}>次は3番目の手順です。右端のボタンをクリックします。</p>
         <p>4番目の手順です。中央のボタンをクリックします。</p>
         <p>5番目の手順です。左端のボタンをクリックします。</p>
         <p>6番目の手順です。上部のメニューから設定を選択します。</p>
