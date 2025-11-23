@@ -1,0 +1,16 @@
+.image-container {
+  position: sticky;
+  top: 0px;
+  width: 500px;
+  height: 300px;
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.pContainer > p {
+  margin-bottom: 800px;
+}
